@@ -191,7 +191,7 @@
       opts = {
         include_docs: true,
         collection: con.helpers.extract_collection_name(this),
-        filter: "" + con.config.ddoc_name + "/" + con.config.viewName
+        filter: "" + con.config.ddoc_name + "/" + con.config.view_name
       };
       _.extend(opts, this.db);
       return _.defer(__bind(function() {
