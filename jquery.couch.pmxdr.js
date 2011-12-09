@@ -1061,7 +1061,7 @@
       data: ajaxOptions.data
     };
 
-    pmxdr.request(pmxdr_args, "/oversight/_design/oversight/pmxdr-host.html");
+    pmxdr.request(pmxdr_args, $.couch.pmxdr_host_path);
   }
 
   /**
