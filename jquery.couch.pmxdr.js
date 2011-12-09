@@ -1014,8 +1014,11 @@
     options = $.extend({successStatus: 200}, options);
     ajaxOptions = $.extend(defaultAjaxOpts, ajaxOptions);
     errorMessage = errorMessage || "Unknown error";
-    $.ajax($.extend($.extend({
-      type: "GET", dataType: "json", cache : !$.browser.msie,
+    
+    ajaxOptions = $.extend($.extend({
+      type: "GET", 
+      dataType: "json", 
+      cache : !$.browser.msie,
       beforeSend: function(xhr){
         if(ajaxOptions && ajaxOptions.headers){
           for (var header in ajaxOptions.headers){
@@ -1025,7 +1028,7 @@
       },
       complete: function(req) {
         try {
-          var resp = $.parseJSON(req.responseText);
+          var resp = $.parseJSON(req.data);
         } catch(e) {
           if (options.error) {
             options.error(req.status, req, e);
@@ -1047,7 +1050,18 @@
           alert(errorMessage + ": " + resp.reason);
         }
       }
-    }, obj), ajaxOptions));
+    }, obj), ajaxOptions);
+    
+    pmxdr_args = {
+      uri: ajaxOptions.url,
+      method: ajaxOptions.type,
+      headers: ajaxOptions.headers,
+      callback: ajaxOptions.complete,
+      contentType: ajaxOptions.contentType,
+      data: ajaxOptions.data
+    };
+
+    pmxdr.request(pmxdr_args, "/oversight/_design/oversight/pmxdr-host.html");
   }
 
   /**
